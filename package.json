@@ -1,0 +1,37 @@
+{
+  "name": "pinpod-website",
+  "version": "1.0.0",
+  "description": "Website dokumentasi platform ekonomi kreatif PinPod untuk Podlings",
+  "main": "index.html",
+  "scripts": {
+    "start": "live-server --port=3000 --open=/",
+    "dev": "live-server --port=3000 --open=/ --watch=.",
+    "build": "echo 'Build completed'",
+    "test": "echo 'No tests specified'"
+  },
+  "keywords": [
+    "pinpod",
+    "podlings",
+    "ekonomi-kreatif",
+    "platform-jasa",
+    "website",
+    "documentation"
+  ],
+  "author": "PinPod Team",
+  "license": "MIT",
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  },
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pinpod/website-documentation.git"
+  },
+  "bugs": {
+    "url": "https://github.com/pinpod/website-documentation/issues"
+  },
+  "homepage": "https://pinpod.com",
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
