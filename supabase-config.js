@@ -1,7 +1,8 @@
 // Supabase Configuration
-// Ganti dengan URL dan API Key dari project Supabase Anda
-const SUPABASE_URL = 'YOUR_SUPABASE_PROJECT_URL'
-const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY'
+// Prefer konfigurasi lokal jika tersedia (window.SUPABASE_LOCAL)
+// FALLBACK ke placeholder yang harus Anda ganti jika tidak memakai file lokal
+const SUPABASE_URL = (window.SUPABASE_LOCAL && window.SUPABASE_LOCAL.url) || 'YOUR_SUPABASE_PROJECT_URL'
+const SUPABASE_ANON_KEY = (window.SUPABASE_LOCAL && window.SUPABASE_LOCAL.anonKey) || 'YOUR_SUPABASE_ANON_KEY'
 
 // Initialize Supabase client
 const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
