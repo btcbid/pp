@@ -194,13 +194,49 @@ function initFormHandling() {
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengirim...';
             submitBtn.disabled = true;
             
-            // Simulate API call
-            setTimeout(() => {
-                showNotification('Terima kasih! Anda telah berhasil mendaftar untuk early access PinPod. Kami akan menghubungi Anda segera.', 'success');
-                form.reset();
-                submitBtn.innerHTML = originalText;
-                submitBtn.disabled = false;
-            }, 2000);
+            // Submit to Supabase
+            const userData = {
+                name: name,
+                email: email,
+                phone: phone,
+                interest: interest
+            };
+            
+            // Check if Supabase is available
+            if (window.supabaseService) {
+                window.supabaseService.registerUser(userData)
+                    .then(result => {
+                        if (result.success) {
+                            showNotification('Terima kasih! Anda telah berhasil mendaftar untuk early access PinPod. Kami akan menghubungi Anda segera.', 'success');
+                            
+                            // Track analytics
+                            window.supabaseService.trackEvent({
+                                type: 'user_registration',
+                                data: { interest: interest }
+                            });
+                            
+                            form.reset();
+                        } else {
+                            showNotification('Maaf, terjadi kesalahan. Silakan coba lagi.', 'error');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Registration error:', error);
+                        showNotification('Maaf, terjadi kesalahan. Silakan coba lagi.', 'error');
+                    })
+                    .finally(() => {
+                        submitBtn.innerHTML = originalText;
+                        submitBtn.disabled = false;
+                    });
+            } else {
+                // Fallback to simulation if Supabase not available
+                setTimeout(() => {
+                    showNotification('Terima kasih! Anda telah berhasil mendaftar untuk early access PinPod. Kami akan menghubungi Anda segera.', 'success');
+                    form.reset();
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                }, 2000);
+            }
         });
     }
 }

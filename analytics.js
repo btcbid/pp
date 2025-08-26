@@ -213,7 +213,17 @@ class PinPodAnalytics {
         // Store event locally
         this.events.push(data);
 
-        // Send to analytics endpoint (replace with your analytics service)
+        // Send to Supabase if available
+        if (window.supabaseService) {
+            window.supabaseService.trackEvent({
+                type: data.event,
+                data: data
+            }).catch(error => {
+                console.log('Supabase analytics error:', error);
+            });
+        }
+
+        // Fallback to local API endpoint
         if (navigator.sendBeacon) {
             navigator.sendBeacon('/api/analytics', JSON.stringify(data));
         } else {
